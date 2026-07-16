@@ -1,26 +1,165 @@
 import { getTrendingTokens } from "@/services/dexscreener";
+import { calculateConvictionScore } from "./engine/score";
+import { classifyConviction } from "./engine/classify";
+
+const NARRATIVE_KEYWORDS: Record<string, string[]> = {
+  "AI Infrastructure": [
+    "ai",
+    "agent",
+    "llm",
+    "gpu",
+    "compute",
+    "inference",
+    "model",
+    "robot",
+  ],
+
+  Memecoins: [
+    "meme",
+    "dog",
+    "cat",
+    "frog",
+    "pepe",
+    "bonk",
+    "inu",
+  ],
+
+  DeFi: [
+    "dex",
+    "swap",
+    "yield",
+    "lending",
+    "staking",
+    "liquidity",
+    "finance",
+  ],
+
+  RWA: [
+    "real world",
+    "asset",
+    "treasury",
+    "bond",
+    "tokenized",
+  ],
+
+  Gaming: [
+    "game",
+    "gaming",
+    "play",
+    "metaverse",
+  ],
+
+  DePIN: [
+    "depin",
+    "network",
+    "wireless",
+    "compute",
+    "storage",
+  ],
+};
+
+function classifyNarrative(text: string) {
+  const value = text.toLowerCase();
+
+  for (const [narrative, keywords] of Object.entries(
+    NARRATIVE_KEYWORDS
+  )) {
+    if (keywords.some((keyword) => value.includes(keyword))) {
+      return narrative;
+    }
+  }
+
+  return "Emerging";
+}
 
 export async function getLiveNarratives() {
-  const data = await getTrendingTokens();
+  const tokens = await getTrendingTokens();
 
-  return data.slice(0, 12).map((token: any) => ({
-    id: token.tokenAddress,
+  const grouped = new Map<string, any[]>();
 
-    name: token.description || "Unknown",
+  for (const token of tokens) {
+    const searchable = `
+      ${token.baseToken?.name ?? ""}
+      ${token.baseToken?.symbol ?? ""}
+      ${token.description ?? ""}
+    `;
 
-    symbol: token.url
-      ?.split("/")
-      .pop()
-      ?.toUpperCase() || "TOKEN",
+    const narrative = classifyNarrative(searchable);
 
-    chain: token.chainId,
+    if (!grouped.has(narrative)) {
+      grouped.set(narrative, []);
+    }
 
-    icon: token.icon,
+    grouped.get(narrative)!.push(token);
+  }
 
-    website: token.url,
+  const narratives = Array.from(grouped.entries()).map(
+    ([name, tokens]) => {
+      const liquidity = tokens.reduce(
+        (sum, token) =>
+          sum + (Number(token.liquidity?.usd) || 0),
+        0
+      );
 
-    description: token.description,
+      const volume24h = tokens.reduce(
+        (sum, token) =>
+          sum + (Number(token.volume?.h24) || 0),
+        0
+      );
 
-    updatedAt: token.updatedAt,
-  }));
+      const avgPriceChange =
+        tokens.length > 0
+          ? tokens.reduce(
+              (sum, token) =>
+                sum +
+                (Number(token.priceChange?.h24) || 0),
+              0
+            ) / tokens.length
+          : 0;
+
+      // Calculate score
+      const convictionScore =
+        calculateConvictionScore({
+          liquidity,
+          volume24h,
+          priceChange24h: avgPriceChange,
+          tokenCount: tokens.length,
+        });
+
+      // Classify score
+      const convictionLevel =
+        classifyConviction(convictionScore);
+
+      return {
+        id: name.toLowerCase().replace(/\s+/g, "-"),
+
+        name,
+
+        symbol: `${tokens.length} Tokens`,
+
+        chain: "Multi",
+
+        icon: tokens[0]?.info?.imageUrl ?? "",
+
+        description: `${tokens.length} trending projects detected`,
+
+        updatedAt: new Date().toISOString(),
+
+        convictionScore,
+        convictionLevel,
+
+        tokenCount: tokens.length,
+
+        liquidity,
+        volume24h,
+        priceChange24h: avgPriceChange,
+
+        tokens,
+      };
+    }
+  );
+
+  return narratives.sort(
+    (a, b) => b.convictionScore - a.convictionScore
+  );
 }

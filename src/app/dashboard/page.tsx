@@ -19,7 +19,7 @@ console.log(liveNarratives);
       <DashboardHeader />
       <NarrativeLeaders narratives={liveNarratives} />
       <MarketOverview />
-
+      <br />
       {/* Top Dashboard Section */}
       <div className="grid gap-6 lg:grid-cols-3 mt-8">
 
@@ -31,7 +31,7 @@ console.log(liveNarratives);
         <MarketBrief />
 
       </div>
-
+    
       {/* Narrative Cards */}
       <div className="mt-8">
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
