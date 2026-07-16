@@ -1,6 +1,7 @@
 import { getTrendingTokens } from "@/services/dexscreener";
 import { calculateConvictionScore } from "./engine/score";
 import { classifyConviction } from "./engine/classify";
+import { explainConviction } from "./engine/explain";
 
 const NARRATIVE_KEYWORDS: Record<string, string[]> = {
   "AI Infrastructure": [
@@ -117,18 +118,22 @@ export async function getLiveNarratives() {
             ) / tokens.length
           : 0;
 
-      // Calculate score
-      const convictionScore =
-        calculateConvictionScore({
-          liquidity,
-          volume24h,
-          priceChange24h: avgPriceChange,
-          tokenCount: tokens.length,
-        });
+      const convictionScore = calculateConvictionScore({
+        liquidity,
+        volume24h,
+        priceChange24h: avgPriceChange,
+        tokenCount: tokens.length,
+      });
 
-      // Classify score
       const convictionLevel =
         classifyConviction(convictionScore);
+
+      const reasons = explainConviction({
+        liquidity,
+        volume24h,
+        priceChange24h: avgPriceChange,
+        tokenCount: tokens.length,
+      });
 
       return {
         id: name.toLowerCase().replace(/\s+/g, "-"),
@@ -147,6 +152,7 @@ export async function getLiveNarratives() {
 
         convictionScore,
         convictionLevel,
+        reasons,
 
         tokenCount: tokens.length,
 
