@@ -110,18 +110,20 @@ export async function getLiveNarratives(): Promise<LiveNarrative[]> {
 
   grouped.set("Emerging", []);
 
-  for (const token of tokens) {
-    const searchable = JSON.stringify(token).toLowerCase();
-    const narrative = classifyNarrative(searchable);
+ for (const token of tokens) {
+    const narrative =
+      token.sourceNarrative ??
+      classifyNarrative(
+        `${token.baseToken?.name ?? ""} ${token.baseToken?.symbol ?? ""}`
+      );
 
     if (!grouped.has(narrative)) {
       grouped.set(narrative, []);
     }
 
     grouped.get(narrative)!.push(token);
-    break;
   }
-
+  
   const narratives: LiveNarrative[] = Array.from(grouped.entries()).map(
     ([name, tokens]) => {
       const liquidity = tokens.reduce(
