@@ -5,6 +5,7 @@ import MarketOverview from "@/components/dashboard/MarketOverview";
 import MarketBrief from "@/components/dashboard/MarketBrief";
 import NarrativeHeatmap from "@/components/dashboard/NarrativeHeatmap";
 import NarrativeLeaders from "@/components/dashboard/NarrativeLeaders";
+import ConvictionFeed from "@/components/onchain/ConvictionFeed";
 
 export default async function DashboardPage() {
   const liveNarratives = await getLiveNarratives();
@@ -44,6 +45,7 @@ export default async function DashboardPage() {
 
         {/* AI Insight */}
         <div className="mt-8">
+          <ConvictionFeed />
         </div>
 
       </div>

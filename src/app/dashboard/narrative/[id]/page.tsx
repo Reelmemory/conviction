@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, TrendingUp, Users, BarChart3, Droplets } from "lucide-react";
 import { getLiveNarratives } from "@/lib/conviction/liveNarratives";
+import RecordConviction from "@/components/onchain/RecordConviction";
 
 export default async function NarrativeDetailPage({
   params,
@@ -201,7 +202,14 @@ export default async function NarrativeDetailPage({
             </div>
           </div>
         </div>
+        <RecordConviction
+          narrativeId={narrative.id}
+          narrativeName={narrative.name}
+          score={narrative.conviction}
+        />
+
       </div>
     </main>
   );
 }
+  
