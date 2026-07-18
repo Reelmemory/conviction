@@ -1,13 +1,12 @@
 import { Narrative } from "./types";
+import { calculateConvictionScore } from "./scoring";
+import { calculateConfidence } from "./confidence";
 
-export const narratives: Narrative[] = [
+const rawNarratives = [
   {
     id: "ai",
     name: "AI Infrastructure",
     category: "AI",
-
-    conviction: 94,
-    confidence: 91,
 
     trend: "Bullish",
 
@@ -29,9 +28,6 @@ export const narratives: Narrative[] = [
     name: "Memecoins",
     category: "Meme",
 
-    conviction: 89,
-    confidence: 84,
-
     trend: "Bullish",
 
     walletGrowth: 29,
@@ -47,3 +43,27 @@ export const narratives: Narrative[] = [
     updatedAt: "Just now",
   },
 ];
+
+export const narratives: Narrative[] = rawNarratives.map((item) => {
+  const conviction = calculateConvictionScore({
+    walletGrowth: item.walletGrowth,
+    volumeGrowth: item.volumeGrowth,
+    socialGrowth: item.socialGrowth,
+    liquidityGrowth: item.liquidityGrowth,
+  });
+
+  const confidence = calculateConfidence({
+    walletGrowth: item.walletGrowth,
+    volumeGrowth: item.volumeGrowth,
+    socialGrowth: item.socialGrowth,
+    liquidityGrowth: item.liquidityGrowth,
+  });
+
+  return {
+    ...item,
+    conviction: conviction.score,
+    level: conviction.level,
+    confidence: confidence.confidence,
+    confidenceLabel: confidence.label,
+  };
+});

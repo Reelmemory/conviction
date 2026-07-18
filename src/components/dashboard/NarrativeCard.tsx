@@ -1,34 +1,38 @@
 import Link from "next/link";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import type { LiveNarrative } from "@/lib/conviction/liveNarratives";
 
 interface NarrativeCardProps {
-  id: string;
-  name: string;
-  category: string;
-  score: number;
-  trend: "up" | "down" | "neutral";
-  summary: string;
-  volumeChange: number;
-  walletGrowth: number;
-  risk: "Low" | "Medium" | "High";
+  narrative: LiveNarrative;
 }
 
 export default function NarrativeCard({
-  id,
-  name,
-  category,
-  score,
-  trend,
-  summary,
-  volumeChange,
-  walletGrowth,
-  risk,
+  narrative,
 }: NarrativeCardProps) {
+  const {
+    id,
+    name,
+    category,
+    conviction,
+    confidence,
+    trend,
+    summary,
+    volumeGrowth,
+    walletGrowth,
+  } = narrative;
+
+  const confidenceLabel =
+    confidence >= 80
+      ? "High"
+      : confidence >= 60
+        ? "Medium"
+        : "Low";
+
   return (
     <Link
-      href={`/narrative/${id}`}
+      href={`/dashboard/narrative/${narrative.id}`}
       className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
     >
       <Card className="cursor-pointer bg-zinc-900 border-zinc-800 transition-all duration-300 hover:border-violet-500 hover:bg-zinc-800/50">
@@ -37,43 +41,45 @@ export default function NarrativeCard({
             <div>
               <Badge variant="secondary">{category}</Badge>
 
-              <h3 className="text-xl font-semibold mt-3">
+              <h3 className="text-2xl font-bold text-white">
                 {name}
               </h3>
             </div>
 
             <div className="text-right">
-              <p className="text-sm text-zinc-400">
-                Conviction Score
+              <p className="text-zinc-300 leading-7">
+                Conviction
               </p>
-
               <p className="text-3xl font-bold text-violet-400">
-                {score}
+                {conviction}
               </p>
             </div>
           </div>
 
-          <p className="text-zinc-400 text-sm">
+          <p className="text-sm text-zinc-400">
             {summary}
           </p>
 
           <div className="flex items-center justify-between text-sm">
-            <span>
-              Volume +{volumeChange}%
+            <span className="text-zinc-400">
+              Volume +{volumeGrowth.toFixed(1)}%
             </span>
-
-            <span>
-              Wallets +{walletGrowth}%
+            <span className="text-zinc-400">
+              {walletGrowth} Tokens
             </span>
           </div>
 
           <div className="flex items-center justify-between">
-            <Badge>{risk} Risk</Badge>
+            <Badge variant="outline">
+              {confidence}% • {confidenceLabel}
+            </Badge>
 
-            {trend === "up" ? (
+            {trend === "Bullish" ? (
               <TrendingUp className="text-green-500" />
-            ) : (
+            ) : trend === "Bearish" ? (
               <TrendingDown className="text-red-500" />
+            ) : (
+              <Minus className="text-yellow-500" />
             )}
           </div>
         </CardContent>

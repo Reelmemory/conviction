@@ -1,13 +1,14 @@
 export type ConvictionLevel =
+  | "Very Weak"
   | "Weak"
-  | "Building"
+  | "Moderate"
   | "Strong"
-  | "Conviction";
+  | "Very Strong";
 
 export function classifyConviction(score: number): ConvictionLevel {
-  if (score < 30) return "Weak";
-  if (score < 60) return "Building";
-  if (score < 80) return "Strong";
-
-  return "Conviction";
+  if (score >= 90) return "Very Strong";
+  if (score >= 75) return "Strong";
+  if (score >= 60) return "Moderate";
+  if (score >= 40) return "Weak";
+  return "Very Weak";
 }

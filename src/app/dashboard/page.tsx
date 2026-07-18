@@ -1,4 +1,3 @@
-import { getNarratives } from "@/lib/conviction/engine";
 import { getLiveNarratives } from "@/lib/conviction/liveNarratives";
 import NarrativeCard from "@/components/dashboard/NarrativeCard";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
@@ -8,47 +7,46 @@ import NarrativeHeatmap from "@/components/dashboard/NarrativeHeatmap";
 import NarrativeLeaders from "@/components/dashboard/NarrativeLeaders";
 
 export default async function DashboardPage() {
-  const narratives = await getNarratives();
   const liveNarratives = await getLiveNarratives();
 
-console.log(liveNarratives);
+
   return (
-  <main className="min-h-screen bg-zinc-950 text-white p-8">
-    <div className="max-w-7xl mx-auto">
+    <main className="min-h-screen bg-zinc-950 text-white p-8">
+      <div className="max-w-7xl mx-auto">
 
-      <DashboardHeader />
-      <NarrativeLeaders narratives={liveNarratives} />
-      <MarketOverview />
-      <br />
-      {/* Top Dashboard Section */}
-      <div className="grid gap-6 lg:grid-cols-3 mt-8">
+        <DashboardHeader />
+        <NarrativeLeaders narratives={liveNarratives} />
+        <MarketOverview />
+        <br />
+        {/* Top Dashboard Section */}
+        <div className="grid gap-6 lg:grid-cols-3 mt-8">
 
-        {/* Heatmap */}
-        <div className="lg:col-span-2">
-          <NarrativeHeatmap />
+          {/* Heatmap */}
+          <div className="lg:col-span-2">
+            <NarrativeHeatmap />
+          </div>
+
+          <MarketBrief />
+
         </div>
 
-        <MarketBrief />
-
-      </div>
-    
-      {/* Narrative Cards */}
-      <div className="mt-8">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {narratives.map((narrative) => (
-            <NarrativeCard
-              key={narrative.id}
-              {...narrative}
-            />
-          ))}
+        {/* Narrative Cards */}
+        <div className="mt-8">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {liveNarratives.map((narrative) => (
+              <NarrativeCard
+                key={narrative.id}
+                narrative={narrative}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* AI Insight */}
-      <div className="mt-8">
-      </div>
+        {/* AI Insight */}
+        <div className="mt-8">
+        </div>
 
-    </div>
-  </main>
-);
+      </div>
+    </main>
+  );
 }

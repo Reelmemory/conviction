@@ -5,11 +5,11 @@ import { ArrowUpRight } from "lucide-react";
 interface Narrative {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   icon?: string;
-  convictionScore: number;
-  tokenCount: number;
-  convictionLevel: string;
+  conviction: number;
+  tokenCount?: number;
+  convictionLevel?: string;
 }
 
 interface NarrativeLeadersProps {
@@ -30,62 +30,62 @@ export default function NarrativeLeaders({
       </div>
 
       <div className="space-y-4">
-        {narratives.map((narrative) => (
-          <Link
-            key={narrative.id}
-            href={`/dashboard/${narrative.id}`}
-            className="flex items-center justify-between rounded-xl border border-zinc-800 p-3 transition-all duration-300 hover:border-violet-500 hover:bg-zinc-800/50"
-          >
-            <div className="flex items-center gap-3">
-              {narrative.icon ? (
-                <Image
-                  src={narrative.icon}
-                  alt={narrative.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-              ) : (
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 font-bold">
-                  {narrative.name.charAt(0)}
-                </div>
-              )}
+        {narratives.map((narrative) => {
+          const validIcon =
+            !!narrative.icon &&
+            narrative.icon.startsWith("http");
 
-              <div>
-                <p className="font-semibold">{narrative.name}</p>
+          return (
+            <Link
+              key={narrative.id}
+              href={`/dashboard/narrative/${narrative.id}`}
+              className="flex items-center justify-between rounded-xl border border-zinc-800 p-4 transition-all duration-300 hover:border-violet-500 hover:bg-zinc-800/50"
+            >
+              <div className="flex items-center gap-4">
+                {validIcon ? (
+                  <Image
+                    src={narrative.icon!}
+                    alt={narrative.name}
+                    width={44}
+                    height={44}
+                    className="rounded-full object-cover"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-violet-600 text-sm font-bold">
+                    {narrative.name.charAt(0)}
+                  </div>
+                )}
 
-                <p className="text-xs text-zinc-500">
-                  {narrative.description}
-                </p>
+                <div>
+                  <h3 className="font-semibold text-white">
+                    {narrative.name}
+                  </h3>
 
-                <div className="mt-2 flex items-center gap-2">
-                  <span
-                    className={`rounded-full px-2 py-1 text-[10px] font-semibold ${narrative.convictionLevel === "Conviction"
-                        ? "bg-green-500/20 text-green-400"
-                        : narrative.convictionLevel === "Strong"
-                          ? "bg-blue-500/20 text-blue-400"
-                          : narrative.convictionLevel === "Building"
-                            ? "bg-yellow-500/20 text-yellow-400"
-                            : "bg-red-500/20 text-red-400"
-                      }`}
-                  >
-                    {narrative.convictionLevel}
-                  </span>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    {narrative.description ?? "Live narrative"}
+                  </p>
 
-                  <span className="rounded-full bg-violet-500/20 px-2 py-1 text-[10px] font-semibold text-violet-300">
-                    Score {narrative.convictionScore}
-                  </span>
+                  <div className="mt-3 flex items-center gap-2 flex-wrap">
+                    <span className="rounded-full bg-violet-500/20 px-2 py-1 text-[10px] font-semibold text-violet-300">
+                      {narrative.convictionLevel ?? "Building"}
+                    </span>
 
-                  <span className="text-[10px] text-zinc-500">
-                    {narrative.tokenCount} tokens
-                  </span>
+                    <span className="rounded-full bg-zinc-800 px-2 py-1 text-[10px] text-zinc-300">
+                      Score {Math.round(narrative.conviction)}
+                    </span>
+
+                    <span className="text-[10px] text-zinc-500">
+                      {narrative.tokenCount ?? 0} tokens
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <ArrowUpRight className="h-5 w-5 text-violet-400" />
-          </Link>
-        ))}
+              <ArrowUpRight className="h-5 w-5 text-violet-400" />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
