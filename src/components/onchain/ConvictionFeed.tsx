@@ -47,7 +47,7 @@ export default function ConvictionFeed() {
           address: CONVICTION_REGISTRY,
           abi: registryAbi,
           functionName: "latestCalls",
-          args: [10n],
+          args: [BigInt(10)],
         })) as unknown as OnchainCall[];
 
         if (!cancelled) setCalls([...result]);
