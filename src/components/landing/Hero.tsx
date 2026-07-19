@@ -1,51 +1,30 @@
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { getLiveNarratives } from "@/lib/conviction/liveNarratives";
 import DashboardPreview from "./DashboardPreview";
 
-export default function Hero() {
+export default async function Hero() {
+  const narratives = await getLiveNarratives();
+  const top = narratives
+    .filter((n) => n.walletGrowth > 0)
+    .slice(0, 4)
+    .map((n) => ({ name: n.name, conviction: n.conviction }));
+  const insight =
+    narratives[0]?.summary ??
+    "Live market data is loading. Open the dashboard for the full picture.";
+
   return (
     <section className="relative overflow-hidden pt-36 pb-24">
-      {/* Purple glow */}
-      <div className="absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-purple-600/20 blur-[120px]" />
-
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
-
-        {/* LEFT */}
         <div>
-          <div className="mb-6 inline-flex rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1 text-sm text-purple-300">
-            Built on Monad
-          </div>
-
-          <h1 className="text-5xl font-black leading-tight lg:text-7xl">
-            Discover Narratives
-            <br />
-            <span className="text-purple-400">
-              Before They Become
-            </span>
-            <br />
-            Consensus.
-          </h1>
-
-          <p className="mt-8 max-w-xl text-lg leading-8 text-zinc-400">
-            Conviction analyzes thousands of crypto conversations, surfaces emerging narratives before they trend, and lets you permanently record your market thesis on Monad.
-          </p>
-
+          <div className="mb-6 inline-flex border border-amber-500/40 bg-amber-500/10 px-4 py-1 font-mono text-xs uppercase tracking-wider text-amber-400">Built on Monad</div>
+          <h1 className="text-5xl font-black leading-tight lg:text-7xl">See which narratives<br /><span className="text-amber-400">actually have capital</span><br />behind them.</h1>
+          <p className="mt-8 max-w-xl text-lg leading-8 text-zinc-400">Conviction reads live market data across hundreds of trending tokens, scores each crypto narrative with transparent reasons — and lets you record your own call on Monad, permanently.</p>
           <div className="mt-10 flex gap-4">
-            <Button className="bg-purple-600 px-7 py-6 hover:bg-purple-500">
-              Open Dashboard
-            </Button>
-
-            <Button
-              variant="outline"
-              className="border-zinc-700 bg-transparent px-7 py-6"
-            >
-              View GitHub
-            </Button>
+            <Link href="/dashboard" className="rounded-sm bg-amber-500 px-7 py-3.5 font-medium text-black transition-colors hover:bg-amber-400">Open Dashboard</Link>
+            <a href="https://github.com/Reelmemory/conviction" target="_blank" rel="noopener noreferrer" className="rounded-sm border border-zinc-700 px-7 py-3.5 text-zinc-300 transition-colors hover:border-zinc-500">View GitHub</a>
           </div>
         </div>
-
-        {/* RIGHT */}
-        <DashboardPreview />
-
+        <DashboardPreview narratives={top} insight={insight} />
       </div>
     </section>
   );

@@ -1,51 +1,44 @@
-export default function DashboardPreview() {
+export default function DashboardPreview({
+  narratives,
+  insight,
+}: {
+  narratives: { name: string; conviction: number }[];
+  insight: string;
+}) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl shadow-2xl">
-
+    <div className="rounded-sm border border-zinc-800 bg-zinc-900/60 p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">
-          Trending Narratives
-        </h2>
-
-        <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs text-purple-300">
-          Live
+        <h2 className="text-xl font-semibold">Narrative leaders</h2>
+        <span className="border border-amber-500/40 bg-amber-500/10 px-3 py-1 font-mono text-xs uppercase tracking-wider text-amber-400">
+          ● Live
         </span>
       </div>
 
-      <div className="space-y-4">
-
-        {[
-          ["AI Agents", "92%"],
-          ["Real World Assets", "87%"],
-          ["DeFi Infrastructure", "82%"],
-          ["Gaming", "76%"],
-        ].map(([name, score]) => (
+      <div className="space-y-3">
+        {narratives.map((n) => (
           <div
-            key={name}
-            className="flex items-center justify-between rounded-xl border border-white/5 bg-white/5 p-4"
+            key={n.name}
+            className="flex items-center justify-between rounded-sm border border-zinc-800 bg-zinc-950 p-4"
           >
-            <span>{name}</span>
-
-            <span className="font-semibold text-purple-400">
-              {score}
+            <span>{n.name}</span>
+            <span className="font-mono font-semibold tabular-nums text-amber-400">
+              {n.conviction}
             </span>
           </div>
         ))}
-
+        {narratives.length === 0 && (
+          <p className="text-sm text-zinc-500">
+            Market data warming up — open the dashboard for the live view.
+          </p>
+        )}
       </div>
 
-      <div className="mt-8 rounded-2xl bg-black/40 p-5">
-        <p className="mb-2 text-sm text-zinc-500">
-          AI Insight
+      <div className="mt-8 rounded-sm bg-black/50 p-5">
+        <p className="mb-2 font-mono text-xs uppercase tracking-wider text-zinc-500">
+          Engine readout
         </p>
-
-        <p className="text-sm leading-7 text-zinc-300">
-          AI infrastructure narratives continue gaining momentum as
-          builders deploy new agents across emerging ecosystems,
-          particularly Monad.
-        </p>
+        <p className="text-sm leading-7 text-zinc-300">{insight}</p>
       </div>
-
     </div>
   );
 }
