@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
+  variable: "--font-display",
+});
+
+const mono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
   title: "Conviction",
-  description: "AI Narrative Intelligence for Crypto",
+  description: "Narrative intelligence for crypto — with an onchain conviction record on Monad",
 };
 
 export default function RootLayout({
@@ -18,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={geist.className}>
+      <body className={`${display.variable} ${mono.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

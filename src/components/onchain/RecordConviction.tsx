@@ -90,8 +90,8 @@ export default function RecordConviction({
   }
 
   return (
-    <div className="mt-8 rounded-2xl border border-violet-900/50 bg-zinc-900 p-6">
-      <p className="text-xs uppercase tracking-wider text-violet-400">
+    <div className="mt-8 rounded-sm border border-amber-400/50 bg-zinc-900 p-6">
+      <p className="text-xs uppercase tracking-wider text-amber-400">
         Record your call
       </p>
 
@@ -125,14 +125,14 @@ export default function RecordConviction({
         maxLength={280}
         rows={2}
         placeholder="Your thesis in one or two sentences (max 280 chars)"
-        className="mt-4 w-full rounded-xl border border-zinc-700 bg-zinc-950 p-3 text-sm text-white placeholder-zinc-500 focus:border-violet-500 focus:outline-none"
+        className="mt-4 w-full rounded-sm border border-zinc-700 bg-zinc-950 p-3 text-sm text-white placeholder-zinc-500 focus:border-amber-400 focus:outline-none"
       />
 
       <div className="mt-4 flex items-center justify-between gap-4">
         <button
           onClick={submit}
           disabled={status === "pending"}
-          className="rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-sm bg-amber-400 px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {status === "pending" ? "Confirming..." : "Record onchain"}
         </button>

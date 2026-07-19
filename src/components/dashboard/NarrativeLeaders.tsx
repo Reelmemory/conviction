@@ -20,7 +20,7 @@ export default function NarrativeLeaders({
   narratives,
 }: NarrativeLeadersProps) {
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className="rounded-sm border border-zinc-800 bg-zinc-900 p-6">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-bold">Narrative Leaders</h2>
 
@@ -39,7 +39,7 @@ export default function NarrativeLeaders({
             <Link
               key={narrative.id}
               href={`/dashboard/narrative/${narrative.id}`}
-              className="flex items-center justify-between rounded-xl border border-zinc-800 p-4 transition-all duration-300 hover:border-violet-500 hover:bg-zinc-800/50"
+              className="flex items-center justify-between rounded-sm border border-zinc-800 p-4 transition-all duration-300 hover:border-amber-400 hover:bg-zinc-800/50"
             >
               <div className="flex items-center gap-4">
                 {validIcon ? (
@@ -52,7 +52,7 @@ export default function NarrativeLeaders({
                     unoptimized
                   />
                 ) : (
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-violet-600 text-sm font-bold">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-400 text-sm font-bold">
                     {narrative.name.charAt(0)}
                   </div>
                 )}
@@ -67,7 +67,7 @@ export default function NarrativeLeaders({
                   </p>
 
                   <div className="mt-3 flex items-center gap-2 flex-wrap">
-                    <span className="rounded-full bg-violet-500/20 px-2 py-1 text-[10px] font-semibold text-violet-300">
+                    <span className="rounded-full bg-amber-400/20 px-2 py-1 text-[10px] font-semibold text-violet-300">
                       {narrative.convictionLevel ?? "Building"}
                     </span>
 
@@ -82,7 +82,7 @@ export default function NarrativeLeaders({
                 </div>
               </div>
 
-              <ArrowUpRight className="h-5 w-5 text-violet-400" />
+              <ArrowUpRight className="h-5 w-5 text-amber-400" />
             </Link>
           );
         })}

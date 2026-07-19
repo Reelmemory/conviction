@@ -66,7 +66,7 @@ export default function ConvictionFeed() {
   }, []);
 
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className="rounded-sm border border-zinc-800 bg-zinc-900 p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white">
           Onchain Conviction Feed
@@ -94,7 +94,7 @@ export default function ConvictionFeed() {
         {calls?.map((call, i) => (
           <div
             key={i}
-            className="rounded-xl border border-zinc-800 bg-zinc-950 p-4"
+            className="rounded-sm border border-zinc-800 bg-zinc-950 p-4"
           >
             <div className="flex items-center justify-between text-sm">
               <span className="font-medium text-white">

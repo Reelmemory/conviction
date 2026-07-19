@@ -7,9 +7,9 @@ export default async function MarketBrief() {
 
   if (narratives.length === 0) {
     return (
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+      <div className="rounded-sm border border-zinc-800 bg-zinc-900 p-6">
         <div className="mb-6 flex items-center gap-2">
-          <BrainCircuit className="h-5 w-5 text-violet-400" />
+          <BrainCircuit className="h-5 w-5 text-amber-400" />
           <h2 className="text-xl font-semibold">
             Market Intelligence
           </h2>
@@ -46,9 +46,9 @@ export default async function MarketBrief() {
       : "text-yellow-400";
 
   return (
-    <div className="h-full rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className="h-full rounded-sm border border-zinc-800 bg-zinc-900 p-6">
       <div className="mb-6 flex items-center gap-2">
-        <BrainCircuit className="h-5 w-5 text-violet-400" />
+        <BrainCircuit className="h-5 w-5 text-amber-400" />
         <h2 className="text-xl font-semibold">
           Market Intelligence
         </h2>
@@ -62,7 +62,7 @@ export default async function MarketBrief() {
         {brief.highlights.map((highlight) => (
           <div
             key={highlight}
-            className="rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-zinc-300"
+            className="rounded-sm border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-zinc-300"
           >
             • {highlight}
           </div>

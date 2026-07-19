@@ -52,21 +52,21 @@ export default async function MarketOverview() {
   ];
 
   return (
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div className="my-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       {stats.map((item) => {
         const Icon = item.icon;
 
         return (
           <div
             key={item.title}
-            className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6 transition-all duration-300 hover:border-violet-500/40"
+            className="rounded-sm border border-zinc-800 bg-zinc-900 p-6 transition-all duration-300 hover:border-amber-400/40"
           >
             <div className="flex items-center justify-between">
               <span className="text-sm text-zinc-400">
                 {item.title}
               </span>
 
-              <Icon className="h-5 w-5 text-violet-400" />
+              <Icon className="h-5 w-5 text-amber-400" />
             </div>
 
             <h2 className="mt-5 text-3xl font-bold text-white">

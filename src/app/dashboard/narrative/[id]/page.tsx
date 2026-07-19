@@ -49,7 +49,7 @@ export default async function NarrativeDetailPage({
       <div className="max-w-3xl mx-auto">
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-violet-400"
+          className="inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-amber-400"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to dashboard
@@ -59,10 +59,10 @@ export default async function NarrativeDetailPage({
 
         <p className="mt-2 text-zinc-400">{narrative.summary}</p>
 
-        <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="mt-8 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-wider text-violet-400">
+              <p className="text-xs uppercase tracking-wider text-amber-400">
                 Conviction Score
               </p>
 
@@ -71,13 +71,13 @@ export default async function NarrativeDetailPage({
               </h2>
             </div>
 
-            <span className="rounded-full bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-300">
+            <span className="rounded-full bg-amber-400/10 px-4 py-2 text-sm font-medium text-violet-300">
               {narrative.convictionLevel}
             </span>
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="mt-6 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
           <h3 className="text-lg font-semibold">
             Explainable AI
           </h3>
@@ -93,17 +93,17 @@ export default async function NarrativeDetailPage({
               return (
                 <div
                   key={signal.title}
-                  className="flex items-start gap-4 rounded-xl border border-zinc-800 bg-zinc-950 p-4"
+                  className="flex items-start gap-4 rounded-sm border border-zinc-800 bg-zinc-950 p-4"
                 >
-                  <div className="rounded-lg bg-violet-500/10 p-2">
-                    <Icon className="h-5 w-5 text-violet-400" />
+                  <div className="rounded-lg bg-amber-400/10 p-2">
+                    <Icon className="h-5 w-5 text-amber-400" />
                   </div>
 
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <h4 className="font-medium">{signal.title}</h4>
 
-                      <span className="text-violet-400 font-semibold">
+                      <span className="text-amber-400 font-semibold">
                         {signal.value}
                       </span>
                     </div>
@@ -116,13 +116,13 @@ export default async function NarrativeDetailPage({
               );
             })}
           </div>
-          <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+          <div className="mt-6 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
             <h3 className="text-lg font-semibold">
               AI Narrative Intelligence
             </h3>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
+              <div className="rounded-sm border border-zinc-800 bg-zinc-950 p-4">
                 <p className="text-xs uppercase text-zinc-500">
                   Market Structure
                 </p>
@@ -132,7 +132,7 @@ export default async function NarrativeDetailPage({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
+              <div className="rounded-sm border border-zinc-800 bg-zinc-950 p-4">
                 <p className="text-xs uppercase text-zinc-500">
                   Momentum
                 </p>
@@ -142,7 +142,7 @@ export default async function NarrativeDetailPage({
                 </p>
               </div>
 
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
+              <div className="rounded-sm border border-zinc-800 bg-zinc-950 p-4">
                 <p className="text-xs uppercase text-zinc-500">
                   Risk
                 </p>
@@ -153,7 +153,7 @@ export default async function NarrativeDetailPage({
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-violet-500/20 bg-violet-500/5 p-5">
+            <div className="mt-6 rounded-sm border border-amber-400/20 bg-amber-400/5 p-5">
               <p className="text-sm font-medium text-violet-300">
                 AI Analysis
               </p>
@@ -162,7 +162,7 @@ export default async function NarrativeDetailPage({
                 {narrative.intelligence.analysis}
               </p>
             </div>
-            <div className="mt-8 rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="mt-8 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
               <h3 className="text-lg font-semibold">
                 Top Tokens
               </h3>
@@ -172,32 +172,54 @@ export default async function NarrativeDetailPage({
               </p>
 
               <div className="mt-6 space-y-3">
-                {narrative.tokens?.slice(0, 5).map((token: any) => (
-                  <div
-                    key={token.pairAddress ?? token.tokenAddress}
-                    className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-950 p-4"
-                  >
-                    <div>
-                      <p className="font-semibold">
-                        {token.baseToken?.symbol ?? "Unknown"}
-                      </p>
-
-                      <p className="text-xs text-zinc-500">
-                        {token.baseToken?.name}
-                      </p>
-                    </div>
-
-                    <div className="text-right">
-                      <p className="text-sm text-violet-400">
-                        {Number(token.priceChange?.h24 ?? 0).toFixed(2)}%
-                      </p>
-
-                      <p className="text-xs text-zinc-500">
-                        ${Number(token.volume?.h24 ?? 0).toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                {narrative.tokens
+                  ?.filter((token: any, i: number, arr: any[]) =>
+                    arr.findIndex(
+                      (t: any) =>
+                        (t.baseToken?.symbol ?? "").toUpperCase() ===
+                        (token.baseToken?.symbol ?? "").toUpperCase()
+                    ) === i
+                  )
+                  .sort(
+                    (a: any, b: any) =>
+                      Number(b.volume?.h24 ?? 0) - Number(a.volume?.h24 ?? 0)
+                  )
+                  .slice(0, 5)
+                  .map((token: any) => {
+                    const change = Number(token.priceChange?.h24 ?? 0);
+                    return (
+                      <div
+                        key={token.pairAddress ?? token.tokenAddress}
+                        className="flex items-center justify-between rounded-sm border border-zinc-800 bg-zinc-950 p-4"
+                      >
+                        <div>
+                          <p className="font-semibold">
+                            {token.baseToken?.symbol ?? "Unknown"}
+                          </p>
+                          <p className="text-xs text-zinc-500">
+                            {token.baseToken?.name}
+                          </p>
+                        </div>
+                        <div className="text-right font-mono tabular-nums">
+                          <p
+                            className={`text-sm ${
+                              change > 0
+                                ? "text-emerald-400"
+                                : change < 0
+                                  ? "text-rose-400"
+                                  : "text-zinc-400"
+                            }`}
+                          >
+                            {change > 0 ? "+" : ""}
+                            {change.toFixed(2)}%
+                          </p>
+                          <p className="text-xs text-zinc-500">
+                            ${Number(token.volume?.h24 ?? 0).toLocaleString()} vol
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

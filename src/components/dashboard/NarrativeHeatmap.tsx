@@ -5,7 +5,7 @@ export default async function NarrativeHeatmap() {
 
   if (narratives.length === 0) {
     return (
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+      <div className="rounded-sm border border-zinc-800 bg-zinc-900 p-6">
         <h2 className="text-xl font-semibold">
           Narrative Heatmap
         </h2>
@@ -18,7 +18,7 @@ export default async function NarrativeHeatmap() {
   }
 
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className="rounded-sm border border-zinc-800 bg-zinc-900 p-6">
       <div className="mb-6">
         <h2 className="text-xl font-semibold">
           Narrative Heatmap
@@ -44,7 +44,7 @@ export default async function NarrativeHeatmap() {
               </div>
 
               <div className="text-right">
-                <p className="font-bold text-violet-400">
+                <p className="font-bold text-amber-400">
                   {narrative.conviction}
                 </p>
 
@@ -53,10 +53,9 @@ export default async function NarrativeHeatmap() {
                 </p>
               </div>
             </div>
-
-            <div className="h-3 overflow-hidden rounded-full bg-zinc-800">
+            <div className="h-3 overflow-hidden rounded-sm bg-zinc-900">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 transition-all duration-700"
+                className="h-full [background:repeating-linear-gradient(90deg,#f59e0b_0_6px,transparent_6px_10px)] transition-all duration-700"
                 style={{
                   width: `${Math.min(
                     Math.max(narrative.conviction, 0),

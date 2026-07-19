@@ -232,5 +232,7 @@ export async function getLiveNarratives(): Promise<LiveNarrative[]> {
     }
   );
 
-  return narratives.sort((a, b) => b.conviction - a.conviction);
+ return narratives
+    .filter((n) => n.walletGrowth > 0)
+    .sort((a, b) => b.conviction - a.conviction);
 }

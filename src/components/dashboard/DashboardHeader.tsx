@@ -4,7 +4,7 @@ export default function DashboardHeader() {
   return (
     <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-center">
       <div>
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-300">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-violet-300">
           <Sparkles className="h-3.5 w-3.5" />
           Live AI Narrative Intelligence
         </div>
@@ -19,7 +19,7 @@ export default function DashboardHeader() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-green-500/20 bg-zinc-900 px-5 py-4">
+      <div className="rounded-sm border border-green-500/20 bg-zinc-900 px-5 py-4">
         <div className="flex items-center gap-2 text-sm font-medium text-green-400">
           <Activity className="h-4 w-4" />
           AI Engine Online

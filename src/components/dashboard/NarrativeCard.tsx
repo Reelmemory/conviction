@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import type { LiveNarrative } from "@/lib/conviction/liveNarratives";
 
 interface NarrativeCardProps {
@@ -33,13 +32,12 @@ export default function NarrativeCard({
   return (
     <Link
       href={`/dashboard/narrative/${narrative.id}`}
-      className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+      className="block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
     >
-      <Card className="cursor-pointer bg-zinc-900 border-zinc-800 transition-all duration-300 hover:border-violet-500 hover:bg-zinc-800/50">
+      <Card className="cursor-pointer bg-zinc-900 border-zinc-800 transition-all duration-300 hover:border-amber-400 hover:bg-zinc-800/50">
         <CardContent className="p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <Badge variant="secondary">{category}</Badge>
 
               <h3 className="text-2xl font-bold text-white">
                 {name}
@@ -50,7 +48,7 @@ export default function NarrativeCard({
               <p className="text-zinc-300 leading-7">
                 Conviction
               </p>
-              <p className="text-3xl font-bold text-violet-400">
+              <p className="text-3xl font-bold text-amber-400">
                 {conviction}
               </p>
             </div>
@@ -61,8 +59,8 @@ export default function NarrativeCard({
           </p>
 
           <div className="flex items-center justify-between text-sm">
-            <span className="text-zinc-400">
-              Volume +{volumeGrowth.toFixed(1)}%
+           <span className="font-mono tabular-nums text-zinc-400">
+              Vol {volumeGrowth >= 0 ? "+" : ""}{volumeGrowth.toFixed(1)}%
             </span>
             <span className="text-zinc-400">
               {walletGrowth} Tokens
@@ -70,9 +68,9 @@ export default function NarrativeCard({
           </div>
 
           <div className="flex items-center justify-between">
-            <Badge variant="outline">
-              {confidence}% • {confidenceLabel}
-            </Badge>
+          <span className="border border-zinc-700 px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-zinc-400">
+              conf {confidence}% · {confidenceLabel}
+            </span>
 
             {trend === "Bullish" ? (
               <TrendingUp className="text-green-500" />

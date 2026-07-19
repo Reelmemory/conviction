@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Conviction_
 
-## Getting Started
+**Narrative intelligence for crypto — with an immutable onchain conviction record on Monad.**
 
-First, run the development server:
+🔗 **Live app:** https://conviction-phi.vercel.app
+📜 **Contract (Monad Testnet):** [`0x5EB1f32Bd9d54256A08549F62E47d95F4249e3Eb`](https://testnet.monadexplorer.com/address/0x5EB1f32Bd9d54256A08549F62E47d95F4249e3Eb)
+
+Built solo for the BuildAnything **Spark** hackathon (Jul 13–19, 2026).
+
+## The problem (a personal one)
+
+I chase crypto narratives on vibes. I buy into "AI season" or "RWA season"
+because my feed says so, forget why I entered, and panic-sell into noise.
+Worse: after the fact, everyone (me included) pretends they "called it."
+There's no honest record.
+
+## What Conviction does
+
+1. **Reads the live market.** Pulls hundreds of trending tokens from
+   DexScreener and groups them into narratives (AI, Memecoins, DeFi, RWA,
+   Gaming, DePIN).
+2. **Scores conviction transparently.** Each narrative gets a 0–100
+   conviction score computed from liquidity, 24h volume, price momentum,
+   and breadth — with human-readable reasons, not a black box.
+3. **Records your call onchain.** Agree or disagree with the engine, and
+   commit your call (bullish/bearish + a 280-char thesis) to the
+   ConvictionRegistry contract on Monad testnet. Immutable and
+   timestamped — you can never rewrite your own history.
+
+The onchain part isn't a checkbox: immutability IS the product. A
+conviction journal you can edit is just a diary. One you can't edit is a
+track record.
+
+## How it works
+
+- **Frontend:** Next.js 16 (App Router, React Compiler), Tailwind v4
+- **Data:** DexScreener API (search across narrative queries, deduped by
+  pair, refreshed every 5 min)
+- **Engine:** deliberately rule-based and explainable — every score ships
+  with its reasons (`src/lib/conviction/engine/`)
+- **Onchain:** `ConvictionRegistry.sol` on Monad testnet (`contracts/`),
+  called via viem. The dashboard feed reads `latestCalls()` straight from
+  the chain.
+
+## Run it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. To record calls you'll need MetaMask on Monad
+testnet (chain 10143) with faucet MON: https://faucet.monad.xyz
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Honest limitations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Deployed on Monad **testnet** (hackathon scope)
+- Narrative classification is keyword/search-based — good, not perfect
+- Scores reflect DexScreener's trending universe, not the whole market
 
-## Learn More
+## Roadmap
 
-To learn more about Next.js, take a look at the following resources:
+- Telegram alerts when a narrative's conviction crosses a threshold
+- Wallet-based public track records ("show me this address's calls")
+- Score accuracy backtesting — did high conviction predict returns?
+- Mainnet deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Built during the hackathon
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Everything in this repo was built within the Spark window (first commit
+Jul 15). The initial scaffold was `create-next-app` boilerplate.
