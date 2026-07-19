@@ -180,6 +180,11 @@ export default async function NarrativeDetailPage({
                         (token.baseToken?.symbol ?? "").toUpperCase()
                     ) === i
                   )
+                  .filter(
+                    (token: any) =>
+                      (token.baseToken?.symbol ?? "").length <= 12 &&
+                      (token.baseToken?.name ?? "").length <= 60
+                  )
                   .sort(
                     (a: any, b: any) =>
                       Number(b.volume?.h24 ?? 0) - Number(a.volume?.h24 ?? 0)
@@ -192,12 +197,12 @@ export default async function NarrativeDetailPage({
                         key={token.pairAddress ?? token.tokenAddress}
                         className="flex items-center justify-between rounded-sm border border-zinc-800 bg-zinc-950 p-4"
                       >
-                        <div>
-                          <p className="font-semibold">
-                            {token.baseToken?.symbol ?? "Unknown"}
+                       <div className="min-w-0 pr-4">
+                          <p className="truncate font-semibold">
+                            {(token.baseToken?.symbol ?? "Unknown").slice(0, 12)}
                           </p>
-                          <p className="text-xs text-zinc-500">
-                            {token.baseToken?.name}
+                          <p className="truncate text-xs text-zinc-500">
+                            {(token.baseToken?.name ?? "").slice(0, 40)}
                           </p>
                         </div>
                         <div className="text-right font-mono tabular-nums">
