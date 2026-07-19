@@ -6,7 +6,7 @@ export default function DashboardHeader() {
       <div>
         <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-medium text-violet-300">
           <Sparkles className="h-3.5 w-3.5" />
-          Live AI Narrative Intelligence
+          Live Narrative Intelligence
         </div>
 
         <h1 className="text-4xl font-bold tracking-tight text-white">
@@ -14,15 +14,14 @@ export default function DashboardHeader() {
         </h1>
 
         <p className="mt-3 max-w-2xl text-zinc-400">
-          AI-powered conviction scoring for emerging crypto narratives using
-          liquidity, trading activity, market momentum and breadth.
+          Transparent conviction scoring for emerging crypto narratives using...
         </p>
       </div>
 
       <div className="rounded-sm border border-green-500/20 bg-zinc-900 px-5 py-4">
         <div className="flex items-center gap-2 text-sm font-medium text-green-400">
           <Activity className="h-4 w-4" />
-          AI Engine Online
+          Engine Online
         </div>
 
         <p className="mt-2 text-xs text-zinc-500">

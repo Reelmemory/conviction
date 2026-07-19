@@ -25,7 +25,7 @@ export default async function NarrativeHeatmap() {
         </h2>
 
         <p className="mt-1 text-sm text-zinc-400">
-          Live AI-ranked conviction across active crypto narratives.
+          Live-ranked conviction across.
         </p>
       </div>
 

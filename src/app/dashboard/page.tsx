@@ -43,7 +43,7 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* AI Insight */}
+        {/* Onchain feed */}
         <div className="mt-8">
           <ConvictionFeed />
         </div>

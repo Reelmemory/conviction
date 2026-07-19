@@ -79,7 +79,7 @@ export default async function NarrativeDetailPage({
 
         <div className="mt-6 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
           <h3 className="text-lg font-semibold">
-            Explainable AI
+            Explainable engine
           </h3>
 
           <p className="mt-1 text-sm text-zinc-400">
@@ -118,7 +118,7 @@ export default async function NarrativeDetailPage({
           </div>
           <div className="mt-6 rounded-sm border border-zinc-800 bg-zinc-900 p-6">
             <h3 className="text-lg font-semibold">
-              AI Narrative Intelligence
+              Narrative Intelligence
             </h3>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -155,7 +155,7 @@ export default async function NarrativeDetailPage({
 
             <div className="mt-6 rounded-sm border border-amber-400/20 bg-amber-400/5 p-5">
               <p className="text-sm font-medium text-violet-300">
-                AI Analysis
+                Engine Analysis
               </p>
 
               <p className="mt-3 leading-7 text-zinc-300">
